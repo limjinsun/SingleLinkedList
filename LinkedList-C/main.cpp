@@ -22,6 +22,8 @@ public:
     void insertNodeAtEnd(int value);
     void insertNodeAtPosition(int position, int value);
     void deleteNodeAtPosition(int position);
+    void deleteNodeAtStart();
+    void deleteNodeAtEnd();
     void display();
 };
 
@@ -33,7 +35,7 @@ void LinkedList::createNode(int value){
     
     head = temp;
     tail = temp;
-    // delete temp;
+    // delete temp; --> I wanted to free memory. but I can't. It will make list unworkable.
     temp = nullptr;
 };
 
@@ -43,19 +45,18 @@ void LinkedList::insertNodeAtStart(int value){
     
     temp->next = head;
     head = temp;
-    // delete temp;
+    // delete temp; --> I wanted to free memory. but I can't. It will make list unworkable.
     temp = nullptr;
 };
 
 void LinkedList::insertNodeAtEnd(int value){
     node *temp = new node;
     temp->data = value;
-    temp->next = nullptr;
     
     tail->next = temp;
     tail = tail->next;
     
-    // delete temp;
+    // delete temp; --> I wanted to free memory. but I can't. It will make list unworkable.
     temp = nullptr;
 };
 
@@ -72,7 +73,7 @@ void LinkedList::insertNodeAtPosition(int position, int value){
     temp->next = count->next;
     count->next = temp;
     
-    delete temp;
+    delete temp; // but I can do it here. (?)
     temp = nullptr;
 };
 
@@ -90,12 +91,37 @@ void LinkedList::deleteNodeAtPosition(int position){
     count = nullptr;
 };
 
+void LinkedList::deleteNodeAtStart(){
+    node *temp = new node;
+    temp = head;
+    head = head->next;
+    delete temp;
+    temp = nullptr;
+}
+
+void LinkedList::deleteNodeAtEnd(){
+    node *temp = new node;
+    node *lastBefore = new node;
+    temp = head;
+    
+    while(temp->next != NULL){
+        lastBefore = temp;
+        temp = temp->next;
+    }
+    
+    tail = lastBefore;
+    tail->next = nullptr;
+    
+    delete temp;
+    temp = nullptr;
+};
+
 void LinkedList::display(){
     node *displayNode = new node;
     displayNode = head;
     while(displayNode != nullptr)
     {
-        cout<<displayNode->data<<"\t";
+        cout<<displayNode->data<<"\n";
         displayNode=displayNode->next;
     }
 };
@@ -112,6 +138,10 @@ int main(){
     list1->insertNodeAtPosition(8, 9);
     list1->deleteNodeAtPosition(4);
     list1->deleteNodeAtPosition(2);
+    list1->deleteNodeAtStart();
+    list1->deleteNodeAtStart();
+    list1->deleteNodeAtEnd();
+    list1->deleteNodeAtEnd();
 
     list1->display();
 };
