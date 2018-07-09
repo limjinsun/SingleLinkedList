@@ -1,5 +1,4 @@
 // Copyright © Jin Lim. All rights reserved.
-
 #include <iostream>
 #include <assert.h>
 using namespace std;
@@ -18,10 +17,11 @@ public:
         head = nullptr;
         tail = nullptr;
     };
-    
     void createNode(int value);
     void insertNodeAtStart(int value);
     void insertNodeAtEnd(int value);
+    void insertNodeAtPosition(int position, int value);
+    void deleteNodeAtPosition(int position);
     void display();
 };
 
@@ -59,6 +59,37 @@ void LinkedList::insertNodeAtEnd(int value){
     temp = nullptr;
 };
 
+void LinkedList::insertNodeAtPosition(int position, int value){
+    node *count = new node;
+    count = head;
+    for (int i = 1; i < position-1; ++i){
+        count = count->next;
+    }
+    
+    node *temp = new node;
+    temp->data = value;
+    
+    temp->next = count->next;
+    count->next = temp;
+    
+    delete temp;
+    temp = nullptr;
+};
+
+void LinkedList::deleteNodeAtPosition(int position){
+    node *count = new node;
+    node *backward = new node;
+    count = head;
+    for (int i = 1; i < position; ++i){
+        backward = count;
+        count = count->next;
+    }
+    
+    backward->next = count->next;
+    delete count;
+    count = nullptr;
+};
+
 void LinkedList::display(){
     node *displayNode = new node;
     displayNode = head;
@@ -69,15 +100,18 @@ void LinkedList::display(){
     }
 };
 
-
 int main(){
     LinkedList *list1 = new LinkedList();
     list1->createNode(4);
-    list1->insertNodeAtEnd(5);
     list1->insertNodeAtEnd(6);
     list1->insertNodeAtEnd(7);
     list1->insertNodeAtEnd(8);
     list1->insertNodeAtStart(3);
-    
+    list1->insertNodeAtStart(2);
+    list1->insertNodeAtPosition(4, 5);
+    list1->insertNodeAtPosition(8, 9);
+    list1->deleteNodeAtPosition(4);
+    list1->deleteNodeAtPosition(2);
+
     list1->display();
 };
