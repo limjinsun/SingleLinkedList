@@ -52,6 +52,7 @@ void LinkedList::insertNodeAtStart(int value){
 void LinkedList::insertNodeAtEnd(int value){
     node *temp = new node;
     temp->data = value;
+    temp->next = nullptr;
     
     tail->next = temp;
     tail = tail->next;
@@ -94,8 +95,9 @@ void LinkedList::deleteNodeAtPosition(int position){
 void LinkedList::deleteNodeAtStart(){
     node *temp = new node;
     temp = head;
-    head = head->next;
     delete temp;
+    
+    head = head->next;
     temp = nullptr;
 }
 
@@ -112,17 +114,16 @@ void LinkedList::deleteNodeAtEnd(){
     tail = lastBefore;
     tail->next = nullptr;
     
-    delete temp;
+    delete lastBefore;
     temp = nullptr;
 };
 
 void LinkedList::display(){
     node *displayNode = new node;
     displayNode = head;
-    while(displayNode != nullptr)
-    {
-        cout<<displayNode->data<<"\n";
-        displayNode=displayNode->next;
+    while(displayNode != nullptr){
+        cout << displayNode->data << endl;
+        displayNode = displayNode->next;
     }
 };
 
@@ -135,13 +136,13 @@ int main(){
     list1->insertNodeAtStart(3);
     list1->insertNodeAtStart(2);
     list1->insertNodeAtPosition(4, 5);
-    list1->insertNodeAtPosition(8, 9);
     list1->deleteNodeAtPosition(4);
     list1->deleteNodeAtPosition(2);
     list1->deleteNodeAtStart();
     list1->deleteNodeAtStart();
     list1->deleteNodeAtEnd();
     list1->deleteNodeAtEnd();
-
+    
     list1->display();
+    return 0;
 };
