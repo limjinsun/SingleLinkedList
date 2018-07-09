@@ -74,7 +74,7 @@ void LinkedList::insertNodeAtPosition(int position, int value){
     temp->next = count->next;
     count->next = temp;
     
-    delete temp; // but I can do it here. (?)
+    delete temp;
     temp = nullptr;
 };
 
@@ -115,6 +115,8 @@ void LinkedList::deleteNodeAtEnd(){
     tail->next = nullptr;
     
     delete lastBefore;
+    lastBefore = nullptr;
+    // delete temp;
     temp = nullptr;
 };
 
@@ -132,6 +134,8 @@ int main(){
     list1->createNode(4);
     list1->insertNodeAtEnd(6);
     list1->insertNodeAtEnd(7);
+    list1->insertNodeAtEnd(8);
+    list1->insertNodeAtEnd(8);
     list1->insertNodeAtEnd(8);
     list1->insertNodeAtStart(3);
     list1->insertNodeAtStart(2);
